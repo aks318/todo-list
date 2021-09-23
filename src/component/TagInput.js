@@ -141,12 +141,12 @@ class TagInput extends React.Component {
   }
 }
 
-const mapDispachToProps = (dispach) =>{
+const mapDispatchToProps = (dispatch) =>{
     return{
-         handleConfirm : (tags) => dispach({type : 'ADD_TAG' , payload : tags}),
-         handleEditConfirm : (tags) => dispach({type : 'ADD_TAG' , payload : tags}),
-         Close : (tags) => dispach({type : 'ADD_TAG' , payload : tags})
+         handleConfirm : (tags) => dispatch({type : 'ADD_TAG' , payload : tags}),
+         handleEditConfirm : (tags) => dispatch({type : 'ADD_TAG' , payload : tags}),
+         Close : (tags) => dispatch({type : 'ADD_TAG' , payload : tags})
     }
 }
 
-export default connect(null,mapDispachToProps)(TagInput)
+export default connect(null,mapDispatchToProps)(TagInput)

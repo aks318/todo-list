@@ -17,25 +17,24 @@ const validateMessages = {
   required: '${label} is required!',
   types: {
     email: '${label} is not a valid email!',
-    // number: '${label} is not a valid number!',
   },
-  // number: {
-  //   range: '${label} must be between ${min} and ${max}',
-  // },
+ 
 };
 /* eslint-enable no-template-curly-in-string */
 
 const ToDoFormInput = (props) => {
   const onFinish = (values) => {
-    console.log(values)
-    console.log(props.tags)
+    // console.log(values)
+    // console.log(props.tags)
+    props.handleData([values.user , props.tags])
+
     // console.log(values.user.date.format('YYYY-MM-DD'));
   };
 
   return (
     <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
       <Form.Item
-        name={['user', 'name']}
+        name={['user', 'title']}
         label="Title"
         rules={[
           {
@@ -88,8 +87,15 @@ const ToDoFormInput = (props) => {
 
 const mapStateToProps = state =>{
   return{
-    tags : state.tags
+    tags : state.tags,
+    data : state.data
   }
 }
 
-export default connect(mapStateToProps)(ToDoFormInput)
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    handleData : (data) => dispatch({type : 'ADD_DATA' , payload : data})
+  }
+}
+
+export default connect(mapStateToProps , mapDispatchToProps)(ToDoFormInput)
