@@ -9,7 +9,10 @@ import moment from 'moment';
 const DisplayTable = (props) => {
 
     const deleteEntry = (record) =>{
-        props.delEntry(record)
+        var con = window.confirm("Are You sure want to delete")
+        if(con){
+            props.delEntry(record)
+        }
     }
 
     // state = {
@@ -159,6 +162,15 @@ const DisplayTable = (props) => {
             </>
           ),
         },
+
+        {
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
+            render: text => text,
+            ...getColumnSearchProps('status'),
+          },
+
         {
           title: 'Action',
           key: 'action',

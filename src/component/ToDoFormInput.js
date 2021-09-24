@@ -1,8 +1,10 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Form, Input, Button, DatePicker } from 'antd';
+import { Form, Input, Button, DatePicker ,Select} from 'antd';
 import { connect } from 'react-redux';
 import TagInput from './TagInput';
+
+const { Option } = Select;
 const layout = {
   labelCol: {
     span: 9,
@@ -24,7 +26,7 @@ const validateMessages = {
 
 const ToDoFormInput = (props) => {
   const onFinish = (values) => {
-    // console.log(values)
+    console.log(values)
     // console.log(props.tags)
     props.handleData([values.user , props.tags])
 
@@ -72,9 +74,21 @@ const ToDoFormInput = (props) => {
        >
         <DatePicker />
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 9 }}>
+      <Form.Item label="Add Tag">
         <TagInput />
       </Form.Item>
+
+      <Form.Item name={['user', 'status']} label="Status" rules={[{ required: true }]}>
+          <Select
+            placeholder="Select Status Of Your Work"
+            allowClear
+          >
+            <Option value="Open">Open</Option>
+            <Option value="Working">Working</Option>
+            <Option value="Done">Done</Option>
+            <Option value="Overdue">Overdue</Option>
+          </Select>
+        </Form.Item>
         
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 9 }}>
         <Button type="primary" htmlType="submit">
