@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
-import { Table, Tag, Space } from 'antd';
+import { Table, Input, Button, Tag, Space } from 'antd';
+import Highlighter from 'react-highlight-words';
+import { SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
 const DisplayTable = (props) => {
@@ -9,6 +11,98 @@ const DisplayTable = (props) => {
     const deleteEntry = (record) =>{
         props.delEntry(record)
     }
+
+    // state = {
+    //     searchText: '',
+    //     searchedColumn: '',
+    //   };
+
+    const [searchText , setsearchText] = useState('')
+    const [searchedColumn , setsearchedColumn] = useState('')
+    
+      const getColumnSearchProps = dataIndex => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+          <div style={{ padding: 8 }}>
+            <Input
+            //   ref={node => {
+            //     this.searchInput = node;
+            //   }}
+              placeholder={`Search ${dataIndex}`}
+              value={selectedKeys[0]}
+              onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+              onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+              style={{ marginBottom: 8, display: 'block' }}
+            />
+            <Space>
+              <Button
+                type="primary"
+                onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                icon={<SearchOutlined />}
+                size="small"
+                style={{ width: 90 }}
+              >
+                Search
+              </Button>
+              <Button onClick={() => handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+                Reset
+              </Button>
+              {/* <Button
+                type="link"
+                size="small"
+                onClick={() => {
+                  confirm({ closeDropdown: false });
+                //   this.setState({
+                //     searchText: selectedKeys[0],
+                //     searchedColumn: dataIndex,
+                //   });
+                setsearchText(selectedKeys[0])
+                setsearchedColumn(dataIndex)
+                }}
+              >
+                Filter
+              </Button> */}
+            </Space>
+          </div>
+        ),
+        filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+        onFilter: (value, record) =>
+          record[dataIndex]
+            ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+            : '',
+        onFilterDropdownVisibleChange: visible => {
+          if (visible) {
+            // setTimeout(() => this.searchInput.select(), 100);
+          }
+        },
+        render: text =>
+          searchedColumn === dataIndex ? (
+            <Highlighter
+              highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text ? text.toString() : ''}
+            />
+          ) : (
+            text
+          ),
+      });
+    
+      const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        // this.setState({
+        //   searchText: selectedKeys[0],
+        //   searchedColumn: dataIndex,
+        // });
+
+        setsearchText(selectedKeys[0])
+        setsearchedColumn(dataIndex)
+      };
+    
+      const handleReset = clearFilters => {
+        clearFilters();
+        // this.setState({ searchText: '' });
+        setsearchText('')
+      };
 
    console.log(props.data)
     const columns = [
@@ -25,6 +119,7 @@ const DisplayTable = (props) => {
           dataIndex: 'title',
           key: 'title',
           render: text => text,
+          ...getColumnSearchProps('title'),
           sorter: (a, b) =>a.title.localeCompare(b.title),
         },
         {
@@ -32,6 +127,7 @@ const DisplayTable = (props) => {
           dataIndex: 'description',
           key: 'description',
           render: text => text,
+          ...getColumnSearchProps('description'),
           sorter: (a, b) =>a.description.localeCompare(b.description),
         },
         {
@@ -45,6 +141,8 @@ const DisplayTable = (props) => {
           title: 'Tags',
           key: 'tags',
           dataIndex: 'tags',
+          ...getColumnSearchProps('tags'),
+
           render: tags => (
             <>
               {tags.map(tag => {
