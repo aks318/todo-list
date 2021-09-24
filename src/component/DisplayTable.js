@@ -16,25 +16,30 @@ const DisplayTable = (props) => {
             title: 'Set Date',
             dataIndex: 'set_date',
             key: 'set_date',
-            render : text => text.format('YYYY-MM-DD')
+            render : text => text.format('YYYY-MM-DD'),
+            sorter: (a, b) => new Date(a.set_date) - new Date(b.set_date)
+
           },
         {
           title: 'Title',
           dataIndex: 'title',
           key: 'title',
           render: text => text,
+          sorter: (a, b) =>a.title.localeCompare(b.title),
         },
         {
           title: 'Description',
           dataIndex: 'description',
           key: 'description',
           render: text => text,
+          sorter: (a, b) =>a.description.localeCompare(b.description),
         },
         {
           title: 'Due Date',
           dataIndex: 'date',
           key: 'date',
-          render : text => text.format('YYYY-MM-DD')
+          render : text => text.format('YYYY-MM-DD'),
+          sorter: (a, b) => new Date(a.date) - new Date(b.date)
         },
         // {
         //   title: 'Age',
