@@ -4,17 +4,6 @@ const initialState = {
 }
 
 const reducer = (state = initialState , action) => {
-    // const newState = {...state}
-    
-    // if(action.type === "ADD_TAG"){
-    //     newState.tags = action.payload
-    // }
-
-    // if(action.type === "ADD_DATA"){
-    //     newState.data = newState.data.push(action.payload)
-    // }
-
-    //     return newState
 
     switch(action.type){
         case "ADD_TAG":
@@ -29,6 +18,12 @@ const reducer = (state = initialState , action) => {
                 data : [...state.data , action.payload]
             }
 
+        case "DELETE_ENTRY":
+            return{
+                ...state,
+                data : state.data.filter(item => (item[0].title , item[0].description , item[0].date) !== (action.payload.title , action.payload.description , action.payload.date))
+            }
+    
         default:
             return state
     }

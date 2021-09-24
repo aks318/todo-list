@@ -1,22 +1,40 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 import { Table, Tag, Space } from 'antd';
+import moment from 'moment';
 
 const DisplayTable = (props) => {
+
+    const deleteEntry = (record) =>{
+        props.delEntry(record)
+    }
+
    console.log(props.data)
     const columns = [
+        {
+            title: 'Set Date',
+            dataIndex: 'set_date',
+            key: 'set_date',
+            render : text => text.format('YYYY-MM-DD')
+          },
         {
           title: 'Title',
           dataIndex: 'title',
           key: 'title',
-          render: text => <a>{text}</a>,
+          render: text => text,
         },
         {
           title: 'Description',
           dataIndex: 'description',
           key: 'description',
-          render: text => <a>{text}</a>,
+          render: text => text,
+        },
+        {
+          title: 'Due Date',
+          dataIndex: 'date',
+          key: 'date',
+          render : text => text.format('YYYY-MM-DD')
         },
         // {
         //   title: 'Age',
@@ -53,8 +71,8 @@ const DisplayTable = (props) => {
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-              <a>Invite {record.name}</a>
-              <a>Delete</a>
+                {console.log(record)}
+              <a onClick = {() =>deleteEntry(record)}>Delete</a>
             </Space>
           ),
         },
@@ -85,12 +103,9 @@ const DisplayTable = (props) => {
     //   ];
 
       const data = props.data.reduce((acc , curr , index) =>{
-          acc.push({key: index ,...curr[0] , tags : curr[1]})
+          acc.push({key: index ,...curr[0] ,  set_date : moment() ,tags : curr[1]} )
           return acc
-      } , [])
-
-      console.log(data)
-      
+      } , [])      
     return (
         <div>
             <Table columns={columns} dataSource={data} />
@@ -104,4 +119,10 @@ const mapStateToProps = state =>{
     }
 }
 
-export default connect(mapStateToProps)(DisplayTable)
+const mapDispatchToProps = dispatch =>{
+    return{
+        delEntry : (record) => dispatch({type : "DELETE_ENTRY" , payload : record})
+    }
+}
+
+export default connect(mapStateToProps , mapDispatchToProps)(DisplayTable)
