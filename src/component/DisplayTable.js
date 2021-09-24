@@ -41,16 +41,6 @@ const DisplayTable = (props) => {
           render : text => text.format('YYYY-MM-DD'),
           sorter: (a, b) => new Date(a.date) - new Date(b.date)
         },
-        // {
-        //   title: 'Age',
-        //   dataIndex: 'age',
-        //   key: 'age',
-        // },
-        // {
-        //   title: 'Address',
-        //   dataIndex: 'address',
-        //   key: 'address',
-        // },
         {
           title: 'Tags',
           key: 'tags',

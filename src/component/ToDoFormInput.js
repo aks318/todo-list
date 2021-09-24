@@ -62,7 +62,7 @@ const ToDoFormInput = (props) => {
         <Input.TextArea />
       </Form.Item>
 
-      <Form.Item name={['user', 'date']} label="Date"
+      <Form.Item name={['user', 'date']} label="Due Date"
         rules = {[
           {
             required : true,
