@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import { Table, Input, Button, Tag, Space, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import moment from 'moment';
+// import moment from 'moment';
 
 
 const EditableCell = ({
@@ -46,6 +46,8 @@ const EditableCell = ({
 
 const DisplayTable = (props) => {
 
+    // Delete entry from table
+
     const deleteEntry = (record) =>{
         var con = window.confirm("Are You sure want to delete")
         if(con){
@@ -64,6 +66,8 @@ const DisplayTable = (props) => {
     const [form] = Form.useForm();
     const [editingKey, setEditingKey] = useState('');
 
+    // useEffect run every time when value of data in reducer changes
+
     useEffect(() =>{
         // console.log(props.data)
         setData(props.data.reduce((acc , curr , index) =>{
@@ -73,6 +77,8 @@ const DisplayTable = (props) => {
     } , [props.data])
 
     const isEditing = (record) => record.key === editingKey;
+
+    // Edit table row
 
   const edit = (record) => {
     form.setFieldsValue({
@@ -114,7 +120,7 @@ const DisplayTable = (props) => {
   };
 
 
-   
+    // Search filter
     
       const getColumnSearchProps = dataIndex => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -201,6 +207,9 @@ const DisplayTable = (props) => {
       };
 
 //    console.log(data)
+
+    //   columns of table
+
     const columns = [
         {
             title: 'Set Date',
