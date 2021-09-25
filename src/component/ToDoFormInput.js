@@ -3,6 +3,8 @@ import 'antd/dist/antd.css';
 import { Form, Input, Button, DatePicker ,Select} from 'antd';
 import { connect } from 'react-redux';
 import TagInput from './TagInput';
+import moment from 'moment';
+
 
 const { Option } = Select;
 const layout = {
@@ -26,8 +28,9 @@ const validateMessages = {
 
 const ToDoFormInput = (props) => {
   const onFinish = (values) => {
-    console.log(values)
-    // console.log(props.tags)
+    console.log(values.user)
+    console.log(props.tags)
+    values.user.set_date = (moment())
     props.handleData([values.user , props.tags])
 
     // console.log(values.user.date.format('YYYY-MM-DD'));

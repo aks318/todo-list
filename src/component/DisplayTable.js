@@ -1,10 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
-import { Table, Input, Button, Tag, Space } from 'antd';
+import { Table, Input, Button, Tag, Space, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
+
+
+const EditableCell = ({
+    editing,
+    dataIndex,
+    title,
+    inputType,
+    record,
+    index,
+    children,
+    ...restProps
+  }) => {
+    const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+    return (
+      <td {...restProps}>
+        {editing ? (
+          <Form.Item
+            name={dataIndex}
+            style={{
+              margin: 0,
+            }}
+            rules={[
+              {
+                required: true,
+                message: `Please Input ${title}!`,
+              },
+            ]}
+          >
+            {inputNode}
+          </Form.Item>
+        ) : (
+          children
+        )}
+      </td>
+    );
+  };
+
+
 
 const DisplayTable = (props) => {
 
@@ -19,9 +57,64 @@ const DisplayTable = (props) => {
     //     searchText: '',
     //     searchedColumn: '',
     //   };
-
+    const [data , setData] = useState()
     const [searchText , setsearchText] = useState('')
     const [searchedColumn , setsearchedColumn] = useState('')
+
+    const [form] = Form.useForm();
+    const [editingKey, setEditingKey] = useState('');
+
+    useEffect(() =>{
+        console.log(props.data)
+        setData(props.data.reduce((acc , curr , index) =>{
+            acc.push({key: index ,...curr[0] ,tags : curr[1]} )
+            return acc
+        } , []))
+    } , [props.data])
+
+    const isEditing = (record) => record.key === editingKey;
+
+  const edit = (record) => {
+    form.setFieldsValue({
+        title: '',
+        description: '',
+        status: '',
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...data];
+      const index = newData.findIndex((item) => key === item.key);
+
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, { ...item, ...row });
+        setData(newData);
+        setEditingKey('');
+        console.log(newData)
+        props.editEntry(newData)
+      } else {
+        newData.push(row);
+        setData(newData);
+        setEditingKey('');
+        console.log(newData)
+        props.editEntry(newData)
+      }
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
+
+   
     
       const getColumnSearchProps = dataIndex => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -107,14 +200,14 @@ const DisplayTable = (props) => {
         setsearchText('')
       };
 
-   console.log(props.data)
+   console.log(data)
     const columns = [
         {
             title: 'Set Date',
             dataIndex: 'set_date',
             key: 'set_date',
             render : text => text.format('YYYY-MM-DD'),
-            sorter: (a, b) => new Date(a.set_date) - new Date(b.set_date)
+            sorter: (a, b) => new Date(a.set_date) - new Date(b.set_date),
 
           },
         {
@@ -124,6 +217,7 @@ const DisplayTable = (props) => {
           render: text => text,
           ...getColumnSearchProps('title'),
           sorter: (a, b) =>a.title.localeCompare(b.title),
+          editable: true,
         },
         {
           title: 'Description',
@@ -132,6 +226,7 @@ const DisplayTable = (props) => {
           render: text => text,
           ...getColumnSearchProps('description'),
           sorter: (a, b) =>a.description.localeCompare(b.description),
+          editable: true,
         },
         {
           title: 'Due Date',
@@ -145,6 +240,7 @@ const DisplayTable = (props) => {
           key: 'tags',
           dataIndex: 'tags',
           ...getColumnSearchProps('tags'),
+          
 
           render: tags => (
             <>
@@ -169,6 +265,34 @@ const DisplayTable = (props) => {
             key: 'status',
             render: text => text,
             ...getColumnSearchProps('status'),
+            editable: true,
+          },
+
+          {
+            title: 'Operation',
+            dataIndex: 'operation',
+            render: (_, record) => {
+              const editable = isEditing(record);
+              return editable ? (
+                <span>
+                  <a
+                    onClick={() => save(record.key)}
+                    style={{
+                      marginRight: 8,
+                    }}
+                  >
+                    Save
+                  </a>
+                  <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+                    <a>Cancel</a>
+                  </Popconfirm>
+                </span>
+              ) : (
+                <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+                  Edit
+                </Typography.Link>
+              );
+            },
           },
 
         {
@@ -182,6 +306,23 @@ const DisplayTable = (props) => {
           ),
         },
       ];
+
+      const mergedColumns = columns.map((col) => {
+        if (!col.editable) {
+          return col;
+        }
+    
+        return {
+          ...col,
+          onCell: (record) => ({
+            record,
+            inputType: col.dataIndex === 'age' ? 'number' : 'text',
+            dataIndex: col.dataIndex,
+            title: col.title,
+            editing: isEditing(record),
+          }),
+        };
+      });
       
     //   const data = [
     //     {
@@ -207,14 +348,24 @@ const DisplayTable = (props) => {
     //     },
     //   ];
 
-      const data = props.data.reduce((acc , curr , index) =>{
-          acc.push({key: index ,...curr[0] ,  set_date : moment() ,tags : curr[1]} )
-          return acc
-      } , [])      
+           
     return (
-        <div>
-            <Table columns={columns} dataSource={data} />
-        </div>
+        <Form form={form} component={false}>
+        <Table
+          components={{
+            body: {
+              cell: EditableCell,
+            },
+          }}
+          bordered
+          dataSource={data}
+          columns={mergedColumns}
+          rowClassName="editable-row"
+          pagination={{
+            onChange: cancel,
+          }}
+        />
+      </Form>
     )
 }
 
@@ -226,6 +377,7 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch =>{
     return{
+        editEntry : (newData) => dispatch({type : "EDIT_ENTRY" , payload : newData}),
         delEntry : (record) => dispatch({type : "DELETE_ENTRY" , payload : record})
     }
 }

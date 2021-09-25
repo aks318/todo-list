@@ -17,6 +17,13 @@ const reducer = (state = initialState , action) => {
                 ...state,
                 data : [...state.data , action.payload]
             }
+        
+        case "EDIT_ENTRY":
+            console.log(action.payload)
+            return{
+                ...state,
+                data : action.payload.map(item => [{title : item.title , description : item.description , date : item.date , set_date : item.set_date , status:item.status} , item.tags])
+            }
 
         case "DELETE_ENTRY":
             return{
