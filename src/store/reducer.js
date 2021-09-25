@@ -26,9 +26,11 @@ const reducer = (state = initialState , action) => {
             }
 
         case "DELETE_ENTRY":
+            console.log(action.payload)
+            console.log(state.data)
             return{
                 ...state,
-                data : state.data.filter(item => (item[0].title) !== (action.payload.title))
+                data : state.data.filter(item => (item[0].set_date) !== (action.payload.set_date))
             }
     
         default:
