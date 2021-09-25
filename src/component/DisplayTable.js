@@ -65,7 +65,7 @@ const DisplayTable = (props) => {
     const [editingKey, setEditingKey] = useState('');
 
     useEffect(() =>{
-        console.log(props.data)
+        // console.log(props.data)
         setData(props.data.reduce((acc , curr , index) =>{
             acc.push({key: index ,...curr[0] ,tags : curr[1]} )
             return acc
@@ -99,13 +99,13 @@ const DisplayTable = (props) => {
         newData.splice(index, 1, { ...item, ...row });
         setData(newData);
         setEditingKey('');
-        console.log(newData)
+        // console.log(newData)
         props.editEntry(newData)
       } else {
         newData.push(row);
         setData(newData);
         setEditingKey('');
-        console.log(newData)
+        // console.log(newData)
         props.editEntry(newData)
       }
     } catch (errInfo) {
@@ -200,7 +200,7 @@ const DisplayTable = (props) => {
         setsearchText('')
       };
 
-   console.log(data)
+//    console.log(data)
     const columns = [
         {
             title: 'Set Date',
@@ -300,7 +300,7 @@ const DisplayTable = (props) => {
           key: 'action',
           render: (text, record) => (
             <Space size="middle">
-                {console.log(record)}
+                {/* {console.log(record)} */}
               <a onClick = {() =>deleteEntry(record)}>Delete</a>
             </Space>
           ),

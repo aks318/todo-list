@@ -19,15 +19,15 @@ const reducer = (state = initialState , action) => {
             }
         
         case "EDIT_ENTRY":
-            console.log(action.payload)
+            // console.log(action.payload)
             return{
                 ...state,
                 data : action.payload.map(item => [{title : item.title , description : item.description , date : item.date , set_date : item.set_date , status:item.status} , item.tags])
             }
 
         case "DELETE_ENTRY":
-            console.log(action.payload)
-            console.log(state.data)
+            // console.log(action.payload)
+            // console.log(state.data)
             return{
                 ...state,
                 data : state.data.filter(item => (item[0].set_date) !== (action.payload.set_date))

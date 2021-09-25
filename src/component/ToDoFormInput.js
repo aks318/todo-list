@@ -28,8 +28,8 @@ const validateMessages = {
 
 const ToDoFormInput = (props) => {
   const onFinish = (values) => {
-    console.log(values.user)
-    console.log(props.tags)
+    // console.log(values.user)
+    // console.log(props.tags)
     values.user.set_date = (moment())
     props.handleData([values.user , props.tags])
 
@@ -75,7 +75,9 @@ const ToDoFormInput = (props) => {
           }
         ]}
        >
-        <DatePicker />
+        <DatePicker  disabledDate={(current) => {
+              let customDate = moment().format("YYYY-MM-DD");
+              return current && current < moment(customDate, "YYYY-MM-DD")}}/>
       </Form.Item>
       <Form.Item label="Add Tag">
         <TagInput />
