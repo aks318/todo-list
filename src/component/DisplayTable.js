@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { Table, Input, Button, Tag, Space, InputNumber, Popconfirm, Form, Typography } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+// import axios from 'axios';
 // import moment from 'moment';
 
 
@@ -67,6 +68,19 @@ const DisplayTable = (props) => {
     const [editingKey, setEditingKey] = useState('');
 
     // useEffect run every time when value of data in reducer changes
+
+    // useEffect(() =>{
+    //   console.log(moment("Tue Oct 28 2021 17:14:24 GMT+0530"))
+    //   axios.get("https://10a5948b-3ece-43bb-86e1-ff1f5a2f5703.mock.pstmn.io")
+    //   .then(res =>{
+    //     console.log(res.data)
+    //     setData(res.data.reduce((acc , curr ,index ) =>{
+    //       acc.push({key : index , set_date : moment(curr.set_date), title : curr.title , description : "Study" , date : moment(curr.date) , tags : curr.tags , status : curr.status})
+    //       return acc
+    //     } , []) )
+    //   }
+    // )
+    // } , [])
 
     useEffect(() =>{
         // console.log(props.data)
