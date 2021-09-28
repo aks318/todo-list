@@ -1,3 +1,5 @@
+A simple todo-list application made using reactjs and antd, where you can Add , delete and modify your todo list.
+
 steps to run To-Do list application
 
 1. clone the repo
