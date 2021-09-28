@@ -15,7 +15,7 @@ const reducer = (state = initialState , action) => {
         case "ADD_DATA":
             return{
                 ...state,
-                data : [...state.data , action.payload]
+                data : [action.payload , ...state.data ]
             }
         
         case "EDIT_ENTRY":
