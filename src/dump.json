@@ -9,74 +9,74 @@
     },
     {
       "set_date" : "Tue Sep 29 2021 16:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Walking",
+      "description": "Walk for 10 minute",
       "date": "Tue Sep 30 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["walk" , "health"],
+      "status": "Done"
     },
     {
       "set_date" : "Tue Sep 30 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Movie",
+      "description": "Watch Movie",
       "date": "Tue Oct 1 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
+      "tags": ["Movie" , "Amazon Prime"],
       "status": "Open"
     },
     {
       "set_date" : "Tue Oct 1 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Workout",
+      "description": "Workout for 90 minutes",
       "date": "Tue Oct 2 2021 18:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["Gym" , "Fitness"],
+      "status": "Working"
     },
     {
       "set_date" : "Tue Oct 1 2021 18:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Sleep",
+      "description": "Take a 20 minute nap",
       "date": "Tue Oct 3 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["sleep"],
+      "status": "Overdue"
     },
     {
       "set_date" : "Tue Oct 3 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Learn React",
+      "description": "Learn react Code",
       "date": "Tue Oct 4 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
+      "tags": ["code" , "react"],
       "status": "Open"
     },
     {
       "set_date" : "Tue Oct 4 2021 17:14:24 GMT+0530",
-      "title": "Study",
+      "title": "Revise React",
       "description": "Study Code",
       "date": "Tue Oct 5 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["code" , "React"],
+      "status": "Done"
     },
     {
       "set_date" : "Tue Oct 5 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Coding",
+      "description": "Do one Coding challenge",
       "date": "Tue Oct 6 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["code" ,"hackerrank"],
+      "status": "Working"
     },
     {
       "set_date" : "Tue Oct 6 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Cricket",
+      "description": "Play box cricket",
       "date": "Tue Oct 7 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["Cricket"],
+      "status": "Overdue"
     },
     {
       "set_date" : "Tue Oct 7 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Football",
+      "description": "Play Football",
       "date": "Tue Oct 8 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
+      "tags": ["Football" , "Game"],
       "status": "Open"
     },
     {
@@ -89,34 +89,34 @@
     },
     {
       "set_date" : "Tue Oct 9 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Workout",
+      "description": "Workout for 2 hours",
       "date": "Tue Oct 10 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["Health" , "Fitness"],
+      "status": "Working"
     },
     {
       "set_date" : "Tue Oct 10 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Snooker",
+      "description": "Go club to play snooker",
       "date": "Tue Oct 11 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["Snooker"],
+      "status": "Overdue"
     },
     {
       "set_date" : "Tue Oct 11 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Rest",
+      "description": "Rest for 10 minutes",
       "date": "Tue Oct 12 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
+      "tags": ["Rest" , "health"],
       "status": "Open"
     },
     {
       "set_date" : "Tue Oct 12 2021 17:14:24 GMT+0530",
-      "title": "Study",
-      "description": "Study Code",
+      "title": "Study Antd",
+      "description": "Study Antd and practice",
       "date": "Tue Oct 13 2021 17:14:24 GMT+0530",
-      "tags": ["code"],
-      "status": "Open"
+      "tags": ["Antd"],
+      "status": "Done"
     }
 ]
